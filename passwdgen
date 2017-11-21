@@ -1,0 +1,20 @@
+#!/bin/bash
+		john -single 
+
+#FUNCTIONS
+##Random word grabber
+passwdget () {
+	wget -qO- http://creativitygames.net/random-word-generator/randomwords/$wordamount | grep -o 'randomword_[1-9]\">[a-z]*' | awk -F ">" '{print $2}' > test.txt
+}
+
+
+oneline () {
+	paste -s test.txt | sed 's/[[:blank:]]//g' > testnospace.txt
+}
+
+
+#VARIABLES
+wordamount=3
+
+passwdget
+oneline

@@ -18,3 +18,9 @@ wordamount=3
 
 passwdget
 oneline
+
+
+
+
+#Use next information for getting a random number between 0.0 - 1.0
+#awk -v seed=$RANDOM 'BEGIN{srand(seed);print rand()}'

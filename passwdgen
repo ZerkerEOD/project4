@@ -1,5 +1,4 @@
 #!/bin/bash
-		john -single 
 
 #FUNCTIONS
 ##Random word grabber
@@ -7,20 +6,28 @@ passwdget () {
 	wget -qO- http://creativitygames.net/random-word-generator/randomwords/$wordamount | grep -o 'randomword_[1-9]\">[a-z]*' | awk -F ">" '{print $2}' > test.txt
 }
 
-
+#parses the words from one file 
 oneline () {
 	paste -s test.txt | sed 's/[[:blank:]]//g' > testnospace.txt
 }
 
-
 #VARIABLES
-wordamount=3
+wordamount=4
+complexity=0.0
 
+#GET OPTIONS
+while getops ":n:t:" opt; do
+	case ${opt} in
+		n ) wordamount="$OPTARG";;
+		t ) complexity="$OPTARG";;
+		\?) ;;#invalad option
+		: ) ;;#missing arguments for an option
+	esac
+done
+
+#MAIN PROGRAM
 passwdget
 oneline
-
-
-
 
 #Use next information for getting a random number between 0.0 - 1.0
 #awk -v seed=$RANDOM 'BEGIN{srand(seed);print rand()}'

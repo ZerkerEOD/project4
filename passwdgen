@@ -3,12 +3,20 @@
 #FUNCTIONS
 ##Random word grabber
 passwdget () {
-	wget -qO- http://creativitygames.net/random-word-generator/randomwords/$wordamount | grep -o 'randomword_[1-9]\">[a-z]*' | awk -F ">" '{print $2}' > test.txt
+wget -qO- http://creativitygames.net/random-word-generator/randomwords/$wordamount | grep -o 'randomword_[1-9]\">[a-z]*' | awk -F ">" '{print $2}' > test.txt
 }
 
 #parses the words from one file 
 oneline () {
-	paste -s test.txt | sed 's/[[:blank:]]//g' > testnospace.txt
+paste -s test.txt | sed 's/[[:blank:]]//g' > testnospace.txt
+rm test.txt
+mv testnospace.txt test.txt
+}
+
+
+passwdrnd () {
+# Declare array
+passwdstr=$(cat test.txt)
 }
 
 #VARIABLES
@@ -16,7 +24,7 @@ wordamount=4
 complexity=0.0
 
 #GET OPTIONS
-while getops ":n:t:" opt; do
+while getopts ":n:t:" opt; do
 	case ${opt} in
 		n ) wordamount="$OPTARG";;
 		t ) complexity="$OPTARG";;
@@ -28,6 +36,13 @@ done
 #MAIN PROGRAM
 passwdget
 oneline
+passwdrnd
+echo $passwdstr
+
+exit 0
 
 #Use next information for getting a random number between 0.0 - 1.0
 #awk -v seed=$RANDOM 'BEGIN{srand(seed);print rand()}'
+
+
+#Get position echo ${var:position:length}

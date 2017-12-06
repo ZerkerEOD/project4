@@ -4,7 +4,16 @@
 #FUNCTIONS
 ##Random word grabber
 passwdget () {
-wget -qO- http://creativitygames.net/random-word-generator/randomwords/$wordamount | grep -o 'randomword_[1-9]\">[a-z]*' | awk -F ">" '{print $2}' > test.txt
+while (( "$wordamount" > "8" ))
+do
+  wget -qO- http://creativitygames.net/random-word-generator/randomwords/8 | grep -o 'randomword_[1-9]\">[a-z]*' | awk -F ">" '{print $2}' >> test.txt
+  wordamount=$(($wordamount-8))
+done
+
+if (( "$wordamount" != "0" ))
+then
+  wget -qO- http://creativitygames.net/random-word-generator/randomwords/$wordamount | grep -o 'randomword_[1-9]\">[a-z]*' | awk -F ">" '{print $2}' >> test.txt
+fi
 }
 
 #parses the words from one file

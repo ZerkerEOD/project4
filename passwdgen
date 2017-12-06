@@ -1,4 +1,5 @@
 #!/bin/bash
+#set -x
 
 #FUNCTIONS
 ##Random word grabber
@@ -16,252 +17,303 @@ mv testnospace.txt test.txt
 passwdrnd () {
 # Declare string passwdstr
 passwdstr=$(cat test.txt)
+size=${#passwdstr}
 # If true uses a special character
 # If false uses capitalization
 altnerate="true"
 
 #Start of the alterations
-for (( i=0; i < ${#passwdstr}; i++ )); do
+for (( i=0; i < $size; i++ )); do
    char=${passwdstr:$i:1}
 	 randomnum=$(awk -v seed=$RANDOM 'BEGIN{srand(seed); print rand()}')
-	 if (("$complexity" -le "$randomnum")); then
+	 if (( $(echo "$complexity <= $randomnum" | bc -l) )); then
 		 ## Altering a to either A or @
-		 if [[ $char == "a" ]] && [[ $altnerate == "true" ]]; then
-			 newpass="${newpass}@"
-			 altnerate="false"
-		 else
-			 newpass="${newpass}A"
-			 alternate="true"
+		 if [[ $char == "a" ]]; then
+       if [[ $alternate == "true" ]]; then
+         newpass="${newpass}@"
+			   altnerate="false"
+		   else
+			   newpass="${newpass}A"
+			   alternate="true"
+       fi
 		 fi
 
 		 ## Altering b to either B or 8
-		 if [[ $char == "a" ]] && [[ $altnerate == "true" ]]; then
-			 newpass="${newpass}8"
-			 altnerate="false"
-		 else
-			 newpass="${newpass}B"
-			 alternate="true"
-		 fi
-
+		 if [[ $char == "b" ]]; then
+       if [[ $alternate == "true" ]]; then
+  			 newpass="${newpass}8"
+  			 altnerate="false"
+  		 else
+  			 newpass="${newpass}B"
+  			 alternate="true"
+  		 fi
+     fi
 		 ## Altering c to either C or (
-		 if [[ $char == "a" ]] && [[ $altnerate == "true" ]]; then
-			 newpass="${newpass}("
-			 altnerate="false"
-		 else
-			 newpass="${newpass}C"
-			 alternate="true"
-		 fi
+		 if [[ $char == "c" ]]; then
+       if [[ $alternate == "true" ]]; then
+  			 newpass="${newpass}("
+  			 altnerate="false"
+  		 else
+  			 newpass="${newpass}C"
+  			 alternate="true"
+  		 fi
+     fi
 
 		 ## Altering d to either D or 6
-		 if [[ $char == "a" ]] && [[ $altnerate == "true" ]]; then
-			 newpass="${newpass}6"
-			 altnerate="false"
-		 else
-			 newpass="${newpass}D"
-			 alternate="true"
-		 fi
+		 if [[ $char == "d" ]]; then
+       if [[ $alternate == "true" ]]; then
+  			 newpass="${newpass}6"
+  			 altnerate="false"
+  		 else
+  			 newpass="${newpass}D"
+  			 alternate="true"
+  		 fi
+     fi
 
 		 ## Altering e to either E or 3
-		 if [[ $char == "a" ]] && [[ $altnerate == "true" ]]; then
-			 newpass="${newpass}3"
-			 altnerate="false"
-		 else
-			 newpass="${newpass}E"
-			 alternate="true"
-		 fi
+		 if [[ $char == "e" ]]; then
+       if [[ $alternate == "true" ]]; then
+  			 newpass="${newpass}3"
+  			 altnerate="false"
+  		 else
+  			 newpass="${newpass}E"
+  			 alternate="true"
+  		 fi
+     fi
 
 		 ## Altering f to either F or #
-		 if [[ $char == "a" ]] && [[ $altnerate == "true" ]]; then
-			 newpass="${newpass}#"
-			 altnerate="false"
-		 else
-			 newpass="${newpass}F"
-			 alternate="true"
-		 fi
+		 if [[ $char == "f" ]]; then
+      if [[ $alternate == "true" ]]; then
+  			 newpass="${newpass}#"
+  			 altnerate="false"
+  		else
+  			 newpass="${newpass}F"
+  			 alternate="true"
+  		fi
+     fi
 
 		 ## Altering g to either G or 9
-		 if [[ $char == "a" ]] && [[ $altnerate == "true" ]]; then
-			 newpass="${newpass}9"
-			 altnerate="false"
-		 else
-			 newpass="${newpass}G"
-			 alternate="true"
-		 fi
+		 if [[ $char == "g" ]]; then
+       if [[ $alternate == "true" ]]; then
+  			 newpass="${newpass}9"
+  			 altnerate="false"
+  		 else
+  			 newpass="${newpass}G"
+  			 alternate="true"
+  		 fi
+     fi
 
 		 ## Altering h to either H or #
-		 if [[ $char == "a" ]] && [[ $altnerate == "true" ]]; then
-			 newpass="${newpass}#"
-			 altnerate="false"
-		 else
-			 newpass="${newpass}H"
-			 alternate="true"
-		 fi
+		 if [[ $char == "h" ]]; then
+       if [[ $alternate == "true" ]]; then
+  			 newpass="${newpass}#"
+  			 altnerate="false"
+  		 else
+  			 newpass="${newpass}H"
+  			 alternate="true"
+  		 fi
+     fi
 
 		 ## Altering i to either I or !
-		 if [[ $char == "a" ]] && [[ $altnerate == "true" ]]; then
-			 newpass="${newpass}!"
-			 altnerate="false"
-		 else
-			 newpass="${newpass}I"
-			 alternate="true"
-		 fi
+		 if [[ $char == "i" ]]; then
+       if [[ $alternate == "true" ]]; then
+  			 newpass="${newpass}!"
+  			 altnerate="false"
+  		 else
+  			 newpass="${newpass}I"
+  			 alternate="true"
+  		 fi
+     fi
 
 		 ## Altering j to either J or )
-		 if [[ $char == "a" ]] && [[ $altnerate == "true" ]]; then
-			 newpass="${newpass})"
-			 altnerate="false"
-		 else
-			 newpass="${newpass}J"
-			 alternate="true"
-		 fi
+		 if [[ $char == "j" ]]; then
+       if [[ $alternate == "true" ]]; then
+  			 newpass="${newpass})"
+  			 altnerate="false"
+  		 else
+  			 newpass="${newpass}J"
+  			 alternate="true"
+  		 fi
+     fi
 
 		 ## Altering k to either K or <
-		 if [[ $char == "a" ]] && [[ $altnerate == "true" ]]; then
-			 newpass="${newpass}<"
-			 altnerate="false"
-		 else
-			 newpass="${newpass}K"
-			 alternate="true"
-		 fi
+		 if [[ $char == "k" ]]; then
+       if [[ $alternate == "true" ]]; then
+  			 newpass="${newpass}<"
+  			 altnerate="false"
+  		 else
+  			 newpass="${newpass}K"
+  			 alternate="true"
+  		 fi
+     fi
 
 		 ## Altering l to either L or 1
-		 if [[ $char == "a" ]] && [[ $altnerate == "true" ]]; then
-			 newpass="${newpass}1"
-			 altnerate="false"
-		 else
-			 newpass="${newpass}L"
-			 alternate="true"
-		 fi
+		 if [[ $char == "l" ]]; then
+       if [[ $alternate == "true" ]]; then
+  			 newpass="${newpass}1"
+  			 altnerate="false"
+  		 else
+  			 newpass="${newpass}L"
+  			 alternate="true"
+  		 fi
+     fi
 
 		 ## Altering m to either M or *
-		 if [[ $char == "a" ]] && [[ $altnerate == "true" ]]; then
-			 newpass="${newpass}*"
-			 altnerate="false"
-		 else
-			 newpass="${newpass}M"
-			 alternate="true"
-		 fi
+		 if [[ $char == "m" ]]; then
+       if [[ $alternate == "true" ]]; then
+  			 newpass="${newpass}*"
+  			 altnerate="false"
+  		 else
+  			 newpass="${newpass}M"
+  			 alternate="true"
+  		 fi
+     fi
 
 		 ## Altering n to either N or ^
-		 if [[ $char == "a" ]] && [[ $altnerate == "true" ]]; then
-			 newpass="${newpass}^"
-			 altnerate="false"
-		 else
-			 newpass="${newpass}N"
-			 alternate="true"
-		 fi
+		 if [[ $char == "n" ]]; then
+       if [[ $alternate == "true" ]]; then
+  			 newpass="${newpass}^"
+  			 altnerate="false"
+  		 else
+  			 newpass="${newpass}N"
+  			 alternate="true"
+  		 fi
+     fi
 
 		 ## Altering o to either O or 0
-		 if [[ $char == "a" ]] && [[ $altnerate == "true" ]]; then
-			 newpass="${newpass}0"
-			 altnerate="false"
-		 else
-			 newpass="${newpass}O"
-			 alternate="true"
-		 fi
+		 if [[ $char == "o" ]]; then
+       if [[ $alternate == "true" ]]; then
+  			 newpass="${newpass}0"
+  			 altnerate="false"
+  		 else
+  			 newpass="${newpass}O"
+  			 alternate="true"
+  		 fi
+     fi
 
 		 ## Altering p to either P or 9
-		 if [[ $char == "a" ]] && [[ $altnerate == "true" ]]; then
-			 newpass="${newpass}9"
-			 altnerate="false"
-		 else
-			 newpass="${newpass}P"
-			 alternate="true"
-		 fi
+		 if [[ $char == "p" ]]; then
+       if [[ $alternate == "true" ]]; then
+  			 newpass="${newpass}9"
+  			 altnerate="false"
+  		 else
+  			 newpass="${newpass}P"
+  			 alternate="true"
+  		 fi
+     fi
 
 		 ## Altering q to either Q or 9
-		 if [[ $char == "a" ]] && [[ $altnerate == "true" ]]; then
-			 newpass="${newpass}9"
-			 altnerate="false"
-		 else
-			 newpass="${newpass}Q"
-			 alternate="true"
-		 fi
+		 if [[ $char == "q" ]]; then
+       if [[ $alternate == "true" ]]; then
+  			 newpass="${newpass}9"
+  			 altnerate="false"
+  		 else
+  			 newpass="${newpass}Q"
+  			 alternate="true"
+  		 fi
+     fi
 
 		 ## Altering r to either R or %
-		 if [[ $char == "a" ]] && [[ $altnerate == "true" ]]; then
-			 newpass="${newpass}%"
-			 altnerate="false"
-		 else
-			 newpass="${newpass}R"
-			 alternate="true"
-		 fi
+		 if [[ $char == "r" ]]; then
+       if [[ $alternate == "true" ]]; then
+  			 newpass="${newpass}%"
+  			 altnerate="false"
+  		 else
+  			 newpass="${newpass}R"
+  			 alternate="true"
+  		 fi
+     fi
 
 		 ## Altering s to either S or $
-		 if [[ $char == "a" ]] && [[ $altnerate == "true" ]]; then
-			 newpass="${newpass}$"
-			 altnerate="false"
-		 else
-			 newpass="${newpass}S"
-			 alternate="true"
-		 fi
+		 if [[ $char == "s" ]]; then
+       if [[ $alternate == "true" ]]; then
+  			 newpass="${newpass}$"
+  			 altnerate="false"
+  		 else
+  			 newpass="${newpass}S"
+  			 alternate="true"
+  		 fi
+     fi
 
 		 ## Altering t to either T or +
-		 if [[ $char == "a" ]] && [[ $altnerate == "true" ]]; then
-			 newpass="${newpass}+"
-			 altnerate="false"
-		 else
-			 newpass="${newpass}T"
-			 alternate="true"
-		 fi
+		 if [[ $char == "t" ]]; then
+       if [[ $alternate == "true" ]]; then
+  			 newpass="${newpass}+"
+  			 altnerate="false"
+  		 else
+  			 newpass="${newpass}T"
+  			 alternate="true"
+  		 fi
+     fi
 
 		 ## Altering u to either U or -
-		 if [[ $char == "a" ]] && [[ $altnerate == "true" ]]; then
-			 newpass="${newpass}-"
-			 altnerate="false"
-		 else
-			 newpass="${newpass}U"
-			 alternate="true"
-		 fi
+		 if [[ $char == "u" ]]; then
+       if [[ $alternate == "true" ]]; then
+  			 newpass="${newpass}-"
+  			 altnerate="false"
+  		 else
+  			 newpass="${newpass}U"
+  			 alternate="true"
+  		 fi
+     fi
 
 		 ## Altering v to either V or ^
-		 if [[ $char == "a" ]] && [[ $altnerate == "true" ]]; then
-			 newpass="${newpass}^"
-			 altnerate="false"
-		 else
-			 newpass="${newpass}V"
-			 alternate="true"
-		 fi
+		 if [[ $char == "v" ]]; then
+       if [[ $alternate == "true" ]]; then
+  			 newpass="${newpass}^"
+  			 altnerate="false"
+  		 else
+  			 newpass="${newpass}V"
+  			 alternate="true"
+  		 fi
+     fi
 
 		 ## Altering w to either W or u
-		 if [[ $char == "a" ]] && [[ $altnerate == "true" ]]; then
-			 newpass="${newpass}u"
-			 altnerate="false"
-		 else
-			 newpass="${newpass}W"
-			 alternate="true"
-		 fi
+		 if [[ $char == "w" ]]; then
+       if [[ $alternate == "true" ]]; then
+  			 newpass="${newpass}u"
+  			 altnerate="false"
+  		 else
+  			 newpass="${newpass}W"
+  			 alternate="true"
+  		 fi
+     fi
 
 		 ## Altering x to either X or %
-		 if [[ $char == "a" ]] && [[ $altnerate == "true" ]]; then
-			 newpass="${newpass}%"
-			 altnerate="false"
-		 else
-			 newpass="${newpass}X"
-			 alternate="true"
-		 fi
+		 if [[ $char == "x" ]]; then
+       if [[ $alternate == "true" ]]; then
+  			 newpass="${newpass}%"
+  			 altnerate="false"
+  		 else
+  			 newpass="${newpass}X"
+  			 alternate="true"
+  		 fi
+     fi
 
 		 ## Altering y to either Y or ?
-		 if [[ $char == "a" ]] && [[ $altnerate == "true" ]]; then
-			 newpass="${newpass}?"
-			 altnerate="false"
-		 else
-			 newpass="${newpass}Y"
-			 alternate="true"
-		 fi
+		 if [[ $char == "y" ]]; then
+       if [[ $alternate == "true" ]]; then
+  			 newpass="${newpass}?"
+  			 altnerate="false"
+  		 else
+  			 newpass="${newpass}Y"
+  			 alternate="true"
+  		 fi
+     fi
 
 		 ## Altering z to either Z or =
-		 if [[ $char == "a" ]] && [[ $altnerate == "true" ]]; then
-			 newpass="${newpass}="
-			 altnerate="false"
-		 else
-			 newpass="${newpass}Z"
-			 alternate="true"
-		 fi
+		 if [[ $char == "z" ]]; then
+       if [[ $alternate == "true" ]]; then
+  			 newpass="${newpass}="
+  			 altnerate="false"
+  		 else
+  			 newpass="${newpass}Z"
+  			 alternate="true"
+  		 fi
+     fi
 	 else
 		newpass="${newpass}${char}"
 	 fi
-
 done
 
 }
@@ -283,6 +335,7 @@ done
 #MAIN PROGRAM
 passwdget
 oneline
+cat test.txt
 passwdrnd
 echo $newpass
 rm test.txt

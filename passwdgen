@@ -336,15 +336,25 @@ while getopts ":n:t:" opt; do
 	case ${opt} in
 		n ) wordamount="$OPTARG";;
 		t ) complexity="$OPTARG";;
-		\?) ;;#invalad option
-		: ) ;;#missing arguments for an option
+		\?) echo "Invalid Option"
+        exit 1;;     #invalad option
+		: ) echo "Invalid argument"
+        exit 2;;#missing arguments for an option
 	esac
 done
+
+if (( $(echo "$complexity >= 0" | bc -l) )) &&
+   (( $(echo "$complexity <= 1" | bc -l) ))
+then
+  complexity=$complexity
+else
+  echo "Complexity needs to be between 0.0 and 1.0"
+  exit 3
+fi
 
 #MAIN PROGRAM
 passwdget
 oneline
-cat test.txt
 passwdrnd
 echo $newpass
 rm test.txt
